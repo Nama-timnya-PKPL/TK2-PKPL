@@ -1,0 +1,234 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nama timnya PKPL</title>
+
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter&family=Poppins&family=Space+Grotesk&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- =====================
+     THEME BUTTON
+===================== -->
+<div class="theme-toggle" id="themeBtn">🎨</div>
+
+<!-- =====================
+     THEME PANEL
+===================== -->
+<div class="theme-panel" id="themePanel">
+
+    <div class="theme-header">
+        <span class="back-theme" id="closeTheme">←</span>
+        <h3>Appearance</h3>
+    </div>
+
+    <!-- BACKGROUND -->
+    <div class="theme-group">
+        <label>Background</label>
+        <input type="color" id="bgColor">
+
+        <div class="preset-colors" data-type="bg">
+            <span data-color="#0c0c0a"></span>
+            <span data-color="#111827"></span>
+            <span data-color="#1f2937"></span>
+            <span data-color="#1a1a2e"></span>
+            <span data-color="#0f172a"></span>
+        </div>
+    </div>
+
+    <!-- TEXT -->
+    <div class="theme-group">
+        <label>Text</label>
+        <input type="color" id="textColor">
+
+        <div class="preset-colors" data-type="text">
+            <span data-color="#f0ede6"></span>
+            <span data-color="#e5e7eb"></span>
+            <span data-color="#ffffff"></span>
+            <span data-color="#cbd5e1"></span>
+        </div>
+    </div>
+
+    <!-- FONT -->
+    <div class="theme-group">
+        <label>Font Style</label>
+        <div class="font-grid">
+            <div data-font="'Syne', sans-serif">Syne</div>
+            <div data-font="'DM Sans', sans-serif">DM Sans</div>
+            <div data-font="'Playfair Display', serif">Playfair</div>
+            <div data-font="'Bebas Neue', sans-serif">Bebas</div>
+            <div data-font="'Inter', sans-serif">Inter</div>
+            <div data-font="'Poppins', sans-serif">Poppins</div>
+            <div data-font="'Space Grotesk', sans-serif">Grotesk</div>
+        </div>
+    </div>
+
+    <button class="reset-btn" id="resetTheme">Reset</button>
+</div>
+
+<!-- =====================
+     MAIN CONTENT
+===================== -->
+{% block content %}{% endblock %}
+
+<!-- =====================
+     CURSOR
+===================== -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- =====================
+     SCRIPT
+===================== -->
+<script>
+/* =====================
+   CURSOR
+===================== */
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+
+let mx=0,my=0,rx=0,ry=0;
+
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX; my=e.clientY;
+  cursor.style.left=mx+'px';
+  cursor.style.top=my+'px';
+});
+
+function animRing(){
+  rx+=(mx-rx)*0.12;
+  ry+=(my-ry)*0.12;
+  ring.style.left=rx+'px';
+  ring.style.top=ry+'px';
+  requestAnimationFrame(animRing);
+}
+animRing();
+
+/* Hover effect (FIXED: delegation) */
+document.addEventListener('mouseover', (e) => {
+  if (e.target.closest('.card,.btn,.nav-right a')) {
+    cursor.style.width='20px';
+    cursor.style.height='20px';
+    cursor.style.background='transparent';
+    cursor.style.border='1.5px solid var(--yellow)';
+  }
+});
+
+document.addEventListener('mouseout', (e) => {
+  if (e.target.closest('.card,.btn,.nav-right a')) {
+    cursor.style.width='10px';
+    cursor.style.height='10px';
+    cursor.style.background='var(--yellow)';
+    cursor.style.border='none';
+  }
+});
+
+/* =====================
+   THEME TOGGLE
+===================== */
+const btn = document.getElementById("themeBtn");
+const panel = document.getElementById("themePanel");
+
+btn.onclick = () => panel.classList.toggle("active");
+
+/* =====================
+   THEME SYSTEM
+===================== */
+const bgColor = document.getElementById("bgColor");
+const textColor = document.getElementById("textColor");
+
+/* COLOR PICKER */
+bgColor.addEventListener("input", () => {
+    document.documentElement.style.setProperty('--bg', bgColor.value);
+    saveTheme();
+});
+
+textColor.addEventListener("input", () => {
+    document.documentElement.style.setProperty('--text', textColor.value);
+    saveTheme();
+});
+
+/* PRESET COLORS (FIXED) */
+document.querySelectorAll(".preset-colors span").forEach(el => {
+    el.style.background = el.dataset.color;
+
+    el.onclick = () => {
+        const type = el.parentElement.dataset.type;
+
+        if (type === "bg") {
+            document.documentElement.style.setProperty('--bg', el.dataset.color);
+            bgColor.value = el.dataset.color;
+        } else {
+            document.documentElement.style.setProperty('--text', el.dataset.color);
+            textColor.value = el.dataset.color;
+        }
+
+        saveTheme();
+    };
+});
+
+/* FONT SELECT */
+document.querySelectorAll(".font-grid div").forEach(el => {
+    el.onclick = () => {
+        document.body.style.fontFamily = el.dataset.font;
+
+        document.querySelectorAll(".font-grid div").forEach(f => f.classList.remove("active"));
+        el.classList.add("active");
+
+        saveTheme();
+    };
+});
+
+/* SAVE */
+function saveTheme() {
+    localStorage.setItem("theme", JSON.stringify({
+        bg: getComputedStyle(document.documentElement).getPropertyValue('--bg'),
+        text: getComputedStyle(document.documentElement).getPropertyValue('--text'),
+        font: document.body.style.fontFamily
+    }));
+}
+
+/* LOAD */
+(function () {
+    const saved = JSON.parse(localStorage.getItem("theme"));
+    if (!saved) return;
+
+    document.documentElement.style.setProperty('--bg', saved.bg);
+    document.documentElement.style.setProperty('--text', saved.text);
+    document.body.style.fontFamily = saved.font;
+
+    bgColor.value = saved.bg.trim();
+    textColor.value = saved.text.trim();
+
+    document.querySelectorAll(".font-grid div").forEach(el => {
+        if (el.dataset.font === saved.font) {
+            el.classList.add("active");
+        }
+    });
+})();
+
+/* RESET */
+document.getElementById("resetTheme").onclick = () => {
+    localStorage.removeItem("theme");
+    location.reload();
+};
+
+/* CLOSE PANEL */
+const closeTheme = document.getElementById("closeTheme");
+
+closeTheme.onclick = () => {
+    panel.classList.remove("active");
+};
+</script>
+
+</body>
+</html>
