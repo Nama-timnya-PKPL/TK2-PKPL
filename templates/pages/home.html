@@ -1,27 +1,23 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 
 <nav class="navbar">
-
-    <div class="logo">67</div> 
-
-    <div class="title-nav">Nama timnnya PKPL</div>
+    <div class="logo">NTP</div> 
+    <div class="title-nav">Nama timnya PKPL</div>
 
     <div class="nav-right">
         <a href="/">Home</a>
         <a href="/login/" class="btn">Sign In</a>
     </div>
-
 </nav>
 
 <!-- =====================
      HERO
 ===================== -->
 <section class="hero">
-
     <div class="hero-left">
-
         <div class="hero-eyebrow">
             <span></span> Nama timnya PKPL
         </div>
@@ -31,15 +27,13 @@
             <em>ANGGOTA</em>
         </h1>
 
-        <p>Meet Our Team😎</p>
-
+        <p>Meet Our Team 😎</p>
     </div>
 
     <div class="hero-right">
         <div class="hero-stat-num">04</div>
         <div class="hero-stat-label">Members</div>
     </div>
-
 </section>
 
 <div class="divider"></div>
@@ -51,105 +45,125 @@
 
     <div class="section-header">
         <span class="section-title">Anggota</span>
-        <span class="section-count">4 orang</span>
     </div>
 
-    <div class="members">
+<div class="members">
 
-        <!-- CARD 1 (LEAD) -->
-        <div class="card">
-            <div class="card-num">01</div>
-
-            <div class="card-top">
-                <div class="avatar">MF</div>
-              <div class="badge lead">Lead</div>
+    <div class="card">
+        <div class="card-num">01</div>
+        <div class="card-top">
+            <div class="avatar-img">
+                <img src="{% static 'images/Farrel.jpeg' %}" alt="Farrel">
             </div>
-
-            <div class="card-info">
-                <h3>M Farrel Rajendra</h3>
-                <p>Computer Science</p>
-            </div>
-
-            <div class="card-footer">
-                <div class="npm-wrap">
-                    <span class="npm-label">NPM</span>
-                    <span class="npm-value">2406495653</span>
-                </div>
+            <div class="badge lead">Lead</div>
+        </div>
+        <div class="card-info">
+            <h3>Muhammad Farrel R</h3>
+            <p>Ilmu Komputer</p>
+        </div>
+        <div class="card-desc">
+            Memiliki minat dalam desain sistem dan pemrograman berbasis web.
+        </div>
+        <div class="card-footer">
+            <div class="npm-wrap">
+                <span class="npm-label">NPM</span>
+                <span class="npm-value">2406495653</span>
             </div>
         </div>
-
-        <!-- CARD 2 -->
-        <div class="card">
-            <div class="card-num">02</div>
-
-            <div class="card-top">
-                <div class="avatar">AH</div>
-                <div class="badge">Member</div>
-            </div>
-
-            <div class="card-info">
-                <h3>Andi Hakim Himawan</h3>
-                <p>Computer Science</p>
-            </div>
-
-            <div class="card-footer">
-                <div class="npm-wrap">
-                    <span class="npm-label">NPM</span>
-                    <span class="npm-value">2406495792</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- CARD 3 -->
-        <div class="card">
-            <div class="card-num">03</div>
-
-            <div class="card-top">
-                <div class="avatar">AA</div>
-                <div class="badge">Member</div>
-            </div>
-
-            <div class="card-info">
-                <h3>Ali Akbar Murthada</h3>
-                <p>Computer Science</p>
-            </div>
-
-            <div class="card-footer">
-                <div class="npm-wrap">
-                    <span class="npm-label">NPM</span>
-                    <span class="npm-value">2406495754</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- CARD 4 -->
-        <div class="card">
-            <div class="card-num">04</div>
-
-            <div class="card-top">
-                <div class="avatar">AF</div>
-                <div class="badge">Member</div>
-            </div>
-
-            <div class="card-info">
-                <h3>M Adella Fathir S</h3>
-                <p>Computer Science</p>
-            </div>
-
-            <div class="card-footer">
-                <div class="npm-wrap">
-                    <span class="npm-label">NPM</span>
-                    <span class="npm-value">2406495640</span>
-                </div>
-            </div>
-        </div>
-
     </div>
 
+    <div class="card">
+        <div class="card-num">02</div>
+        <div class="card-top">
+            <div class="avatar-img">
+                <img src="{% static 'images/Ali.jpeg' %}" alt="Ali">
+            </div>
+            <div class="badge">Member</div>
+        </div>
+        <div class="card-info">
+            <h3>Ali Akbar Murthada</h3>
+            <p>Ilmu Komputer</p>
+        </div>
+        <div class="card-desc">
+            Tertarik dalam pengembangan software dan eksplorasi teknologi baru.
+        </div>
+        <div class="card-footer">
+            <div class="npm-wrap">
+                <span class="npm-label">NPM</span>
+                <span class="npm-value">2406495754</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-num">03</div>
+        <div class="card-top">
+            <div class="avatar-img">
+                <img src="{% static 'images/Andi.jpeg' %}" alt="Andi">
+            </div>
+            <div class="badge">Member</div>
+        </div>
+        <div class="card-info">
+            <h3>Andi Hakim Himawan</h3>
+            <p>Ilmu Komputer</p>
+        </div>
+        <div class="card-desc">
+            Mahasiswa Ilmu Komputer yang tertarik pada pengembangan sistem dan teknologi modern.
+        </div>
+        <div class="card-footer">
+            <div class="npm-wrap">
+                <span class="npm-label">NPM</span>
+                <span class="npm-value">2406495792</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-num">04</div>
+        <div class="card-top">
+            <div class="avatar-img">
+                <img src="{% static 'images/Fathir.jpeg' %}" alt="Fathir">
+            </div>
+            <div class="badge">Member</div>
+        </div>
+        <div class="card-info">
+            <h3>Adella Fathir S</h3>
+            <p>Ilmu Komputer</p>
+        </div>
+        <div class="card-desc">
+            Berfokus pada pengembangan aplikasi dan eksplorasi teknologi digital.
+        </div>
+        <div class="card-footer">
+            <div class="npm-wrap">
+                <span class="npm-label">NPM</span>
+                <span class="npm-value">2406495640</span>
+            </div>
+        </div>
+    </div>
+
+</div>
 </section>
 
 <section class="footer-mini">
     <p>© 2026 Nama timnya PKPL</p>
 </section>
+
+<!-- =====================
+     MODAL
+===================== -->
+<div id="memberModal" class="modal">
+    <div class="modal-content">
+
+        <span class="close-btn">&times;</span>
+
+        <div class="modal-body">
+            <img id="modal-img" src="" alt="foto">
+            <h2 id="modal-name"></h2>
+            <p id="modal-major"></p>
+            <p id="modal-desc"></p>
+        </div>
+
+    </div>
+</div>
 
 {% endblock %}
