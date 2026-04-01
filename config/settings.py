@@ -134,6 +134,7 @@ SITE_ID = 1
 # Optional: Redirect after login
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+SOCIALACCOUNT_LOGIN_ON_GET = True
 
 
 # Static files (CSS, JavaScript, Images)
