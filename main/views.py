@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.http import JsonResponse
+
 
 def home(request):
-    return render(request, 'pages/home.html')
-
+    return render(request, 'pages/home.html', {
+    })
 def login_view(request):
     return render(request, 'pages/login.html')
 
