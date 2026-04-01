@@ -13,9 +13,6 @@
     </div>
 </nav>
 
-<!-- =====================
-     HERO
-===================== -->
 <section class="hero">
     <div class="hero-left">
         <div class="hero-eyebrow">
@@ -38,9 +35,6 @@
 
 <div class="divider"></div>
 
-<!-- =====================
-     MEMBERS
-===================== -->
 <section class="members-section">
 
     <div class="section-header">
@@ -49,7 +43,16 @@
 
 <div class="members">
 
-    <div class="card">
+    <div class="card" 
+         data-photo="{% static 'images/Farrel.jpeg' %}" 
+         data-name="Muhammad Farrel R" 
+         data-major="Ilmu Komputer" 
+         data-desc="Memiliki minat dalam desain sistem dan pemrograman berbasis web." 
+         data-npm="2406495653"
+         data-role="Lead"
+         data-skills="System Design, Web Development, UI/UX"
+         data-github="https://github.com/farrelzzz"
+         data-linkedin="https://www.linkedin.com/in/muhammad-farrel-rajendra/">
         <div class="card-num">01</div>
         <div class="card-top">
             <div class="avatar-img">
@@ -72,7 +75,16 @@
         </div>
     </div>
 
-    <div class="card">
+    <div class="card" 
+         data-photo="{% static 'images/Ali.jpeg' %}" 
+         data-name="Ali Akbar Murthada" 
+         data-major="Ilmu Komputer" 
+         data-desc="Tertarik dalam pengembangan software dan eksplorasi teknologi baru." 
+         data-npm="2406495754"
+         data-role="Member"
+         data-skills="Software Engineering, Tech Research, Algoritma"
+         data-github="https://github.com/aliakb-12"
+         data-linkedin="https://www.linkedin.com/in/ali-akbar-murthadha-aa080030b/">
         <div class="card-num">02</div>
         <div class="card-top">
             <div class="avatar-img">
@@ -95,7 +107,16 @@
         </div>
     </div>
 
-    <div class="card">
+    <div class="card" 
+         data-photo="{% static 'images/Andi.jpeg' %}" 
+         data-name="Andi Hakim Himawan" 
+         data-major="Ilmu Komputer" 
+         data-desc="Mahasiswa Ilmu Komputer yang tertarik pada pengembangan sistem dan teknologi modern." 
+         data-npm="2406495792"
+         data-role="Member"
+         data-skills="Java (Spring), Python (Django), Next.js, Godot"
+         data-github="https://github.com/SirinAX"
+         data-linkedin="https://www.linkedin.com/in/andihh/">
         <div class="card-num">03</div>
         <div class="card-top">
             <div class="avatar-img">
@@ -118,7 +139,16 @@
         </div>
     </div>
 
-    <div class="card">
+    <div class="card" 
+         data-photo="{% static 'images/Fathir.jpeg' %}" 
+         data-name="Adella Fathir S" 
+         data-major="Ilmu Komputer" 
+         data-desc="Berfokus pada pengembangan aplikasi dan eksplorasi teknologi digital." 
+         data-npm="2406495640"
+         data-role="Member"
+         data-skills="App Development, Digital Tech, Database"
+         data-github="https://github.com/raithser"
+         data-linkedin="https://www.linkedin.com/in/m-adela-fathir-supriadi-696297324/">
         <div class="card-num">04</div>
         <div class="card-top">
             <div class="avatar-img">
@@ -144,26 +174,106 @@
 </div>
 </section>
 
+<div id="memberModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" id="closeModal">&times;</span>
+        <div class="modal-body">
+            
+            <div id="modal-role" class="badge">Role</div>
+
+            <img id="modal-img" src="" alt="Foto Profile">
+            <h2 id="modal-name">Nama Member</h2>
+            <p id="modal-major">Ilmu Komputer</p>
+            <p id="modal-desc">Deskripsi singkat tentang member ini.</p>
+            
+            <div class="modal-skills" id="modal-skills">
+                </div>
+
+            <div class="modal-npm-box">
+                <span class="npm-label">NPM</span>
+                <span id="modal-npm-val" class="npm-value">0000000000</span>
+            </div>
+
+            <div class="modal-socials">
+                <a href="#" target="_blank" id="btn-github" class="social-btn github">GitHub</a>
+                <a href="#" target="_blank" id="btn-linkedin" class="social-btn linkedin">LinkedIn</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 <section class="footer-mini">
     <p>© 2026 Nama timnya PKPL</p>
 </section>
 
-<!-- =====================
-     MODAL
-===================== -->
-<div id="memberModal" class="modal">
-    <div class="modal-content">
+<script>
+/* =====================
+   MODAL LOGIC 
+===================== */
+const cards = document.querySelectorAll(".card");
+const modal = document.getElementById("memberModal");
+const closeModalBtn = document.getElementById("closeModal");
 
-        <span class="close-btn">&times;</span>
+// Ambil elemen di dalam modal
+const modalImg = document.getElementById("modal-img");
+const modalName = document.getElementById("modal-name");
+const modalMajor = document.getElementById("modal-major");
+const modalDesc = document.getElementById("modal-desc");
+const modalNpm = document.getElementById("modal-npm-val");
+const modalRole = document.getElementById("modal-role");
+const modalSkills = document.getElementById("modal-skills");
+const btnGithub = document.getElementById("btn-github");
+const btnLinkedin = document.getElementById("btn-linkedin");
 
-        <div class="modal-body">
-            <img id="modal-img" src="" alt="foto">
-            <h2 id="modal-name"></h2>
-            <p id="modal-major"></p>
-            <p id="modal-desc"></p>
-        </div>
+// Buka Modal saat card diklik
+cards.forEach(card => {
+    card.addEventListener("click", () => {
+        // Tarik data basic
+        modalImg.src = card.dataset.photo;
+        modalName.textContent = card.dataset.name;
+        modalMajor.textContent = card.dataset.major;
+        modalDesc.textContent = card.dataset.desc;
+        modalNpm.textContent = card.dataset.npm;
+        
+        // Atur Role Badge di dalam modal
+        modalRole.textContent = card.dataset.role;
+        if(card.dataset.role === "Lead") {
+            modalRole.classList.add("lead");
+        } else {
+            modalRole.classList.remove("lead");
+        }
 
-    </div>
-</div>
+        // Generate Skills Tags
+        modalSkills.innerHTML = "";
+        const skillsArray = card.dataset.skills.split(",");
+        skillsArray.forEach(skill => {
+            const span = document.createElement("span");
+            span.classList.add("skill-tag");
+            span.textContent = skill.trim();
+            modalSkills.appendChild(span);
+        });
+
+        // Setel link social media
+        btnGithub.href = card.dataset.github;
+        btnLinkedin.href = card.dataset.linkedin;
+        
+        // Tampilkan modal
+        modal.classList.add("active");
+    });
+});
+
+
+closeModalBtn.addEventListener("click", () => {
+    modal.classList.remove("active");
+});
+
+
+modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+        modal.classList.remove("active");
+    }
+});
+</script>
 
 {% endblock %}
