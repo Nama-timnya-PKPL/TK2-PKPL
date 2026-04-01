@@ -7,3 +7,7 @@ idna==3.11
 requests==2.33.0
 sqlparse==0.5.5
 urllib3==2.6.3
+PyJWT
+cryptography
+oauthlib
+requests-oauthlib
