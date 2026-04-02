@@ -1,39 +1,16 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
-from django.contrib import messages
-from django.http import JsonResponse
-
+from django.contrib.auth import logout
+from django.shortcuts import redirect
+from django.conf import settings
 
 def home(request):
-    return render(request, 'pages/home.html', {
-    })
-def login_view(request):
-    return render(request, 'pages/login.html')
+    show_theme = (
+        request.user.is_authenticated and 
+        request.user.email in settings.THEME_ALLOWED_EMAILS
+    )
+    return render(request, 'pages/home.html', {'show_theme': show_theme})
 
+def logout_then_login(request):
+    logout(request)
+    return redirect('account_login')  
 
-def register_view(request):
-    if request.method == "POST":
-        name = request.POST.get("name")
-        email = request.POST.get("email")
-        password1 = request.POST.get("password1")
-        password2 = request.POST.get("password2")
-
-        if password1 != password2:
-            messages.error(request, "Password tidak sama!")
-            return redirect("register")
-
-        if User.objects.filter(username=email).exists():
-            messages.error(request, "Email sudah terdaftar!")
-            return redirect("register")
-
-        user = User.objects.create_user(
-            username=email,
-            email=email,
-            password=password1,
-            first_name=name
-        )
-
-        messages.success(request, "Akun berhasil dibuat!")
-        return redirect("login")
-
-    return render(request, "pages/register.html")

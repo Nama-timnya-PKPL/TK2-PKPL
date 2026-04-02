@@ -1,0 +1,17 @@
+{% load static %}
+<nav class="navbar">
+    <div class="logo">NTP</div>
+    <div class="title-nav">Nama timnya PKPL</div>
+
+    <div class="nav-right">
+        <a href="/">Home</a>
+
+        {% if user.is_authenticated %}
+            <span class="user-name">Hi, {{ user.first_name|default:user.username }}</span>
+            <a href="{% url 'custom_logout' %}">Logout</a>
+        {% else %}
+            <a href="{% url 'account_login' %}">Sign In</a>
+            <a href="{% url 'account_signup' %}">Register</a>
+        {% endif %}
+    </div>
+</nav>

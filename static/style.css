@@ -786,3 +786,20 @@ body::before {
     border-color: var(--yellow);
     color: var(--yellow);
 }
+
+    .form-error {
+        background-color: #ffe5e5;
+        color: #ff5555;
+        padding: 10px;
+        border-radius: 6px;
+        margin-bottom: 12px;
+        font-size: 13px;
+    }
+
+    .input-group .error {
+        color: #ff5555;
+        font-size: 12px;
+        margin-top: 4px;
+        display: block;
+    }
+
