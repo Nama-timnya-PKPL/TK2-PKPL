@@ -125,3 +125,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 THEME_ALLOWED_EMAILS = [
     e.strip() for e in config('THEME_ALLOWED_EMAILS', default='').split(',')
 ]
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
